@@ -1,0 +1,51 @@
+{
+  "name": "serverless-pdf-to-images-converter",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "ts-node-dev --respawn --transpile-only ./src/index.local.ts",
+    "compile": "tsc",
+    "build:lambda": "yarn install && yarn compile && rm -rf ./node_modules && yarn install --prod && cp -r ./node_modules ./dist/node_modules && (cd dist; zip -r ../lambda.zip .) && rm -rf ./dist",
+    "test": "jest --watchAll --detectOpenHandles --no-cache"
+  },
+  "devDependencies": {
+    "@types/gm": "^1.18.9",
+    "@types/jest": "^26.0.20",
+    "@types/joi": "^17.2.3",
+    "@types/node": "^14.14.25",
+    "dotenv": "^8.2.0",
+    "jest": "^26.6.3",
+    "jest-extended": "^0.11.5",
+    "ts-jest": "^26.5.0",
+    "ts-node-dev": "^1.1.1",
+    "tslint": "^6.1.3",
+    "typescript": "^4.1.3"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "verbose": true,
+    "roots": [
+      "./src"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "preset": "ts-jest",
+    "setupFilesAfterEnv": [
+      "jest-extended"
+    ]
+  },
+  "engines": {
+    "node": ">=10.x <=12.x"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.873.0",
+    "file-type": "^16.2.0",
+    "gm": "^1.23.1",
+    "joi": "^17.4.0",
+    "pdfjs-dist": "^2.6.347",
+    "url-parse": "^1.4.7",
+    "uuid": "^8.3.2"
+  }
+}
